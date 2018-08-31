@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            {{message}}
+            <br/>
+            <input id="allowEditButton" type="checkbox" v-model="allowEdit" />
+            <label for="allowEditButton">Allow Edit Elements</label>
+ 
+            <input v-model="newItem"/>
+            <input type="button" v-on:click="addNewItem" value="Add"/>
+            <table>
+                <thead>
+                    <th>Name</th>
+                </thead>
+                <tbody>
+                    <tr v-for="item in itemList">
+                        <td v-if="!allowEdit">{{item.name}}</td>
+                        <td v-if="allowEdit">
+                            <input v-model="item.name" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>            
+        </div>
+
+        <script>        
+            a = new Vue({
+                el:'#app',
+                data: {
+                    message:'Hellow World and Vue!',
+                    itemList: [{name:'default'}],
+                    allowEdit: true,
+                    newItem: ''
+                },
+                methods: {
+                    addNewItem: function(){
+                        if(this.newItem === '') return;
+
+                        this.itemList.push({name: this.newItem});
+                        this.newItem = '';
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
